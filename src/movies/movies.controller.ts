@@ -1,3 +1,4 @@
+import { createMovieDto } from './dto/create-movie.dto';
 import { Movie } from './entities/movie.entity';
 import { MoviesService } from './movies.service';
 import {
@@ -21,27 +22,27 @@ export class MoviesController {
   }
 
   @Get('search')
-  search(@Query('year') searchingYear: string) {
+  search(@Query('year') searchingYear: number) {
     return `Searching for movie with year: ${searchingYear}`;
   }
 
   @Get('/:id')
-  getOne(@Param('id') movieId: string): Movie {
+  getOne(@Param('id') movieId: number): Movie {
     return this.moviesService.getOne(movieId);
   }
 
   @Post()
-  create(@Body() movieData) {
+  create(@Body() movieData: createMovieDto) {
     return this.moviesService.create(movieData);
   }
 
   @Delete(':id')
-  remove(@Param('id') movieId: string) {
+  remove(@Param('id') movieId: number) {
     return this.moviesService.deleteOne(movieId);
   }
 
   @Patch(':id')
-  path(@Param('id') movieId: string, @Body() updatedData) {
+  path(@Param('id') movieId: number, @Body() updatedData) {
     return this.moviesService.update(movieId, updatedData);
   }
 }
